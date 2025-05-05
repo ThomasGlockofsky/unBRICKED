@@ -1,6 +1,6 @@
 ---
 layout: home
-title: Home
+title: Nike is short for Nicheal
 ---
 
 # GitHub made this harder than it needed to be.
