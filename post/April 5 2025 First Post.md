@@ -1,9 +1,9 @@
 ---
 layout: post
-title: insert first blog title
+title: "working title"
 category: [intro, brief overview]
 ---
-##~~"Welcome to the shitshow"~~ *insert first blog title*
+##~~"Welcome to the shitshow"~~ *insert attention grabbing title*
 
 #I let the AI convice me to do this 🙃
 
