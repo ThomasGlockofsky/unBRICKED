@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Enable Extended Display on the LG V30
+category: [LG V30]
 ---
 
 ## I DIDN'T BREAK IT
