@@ -3,7 +3,7 @@ layout: post
 title: Enable Extended Display on the LG V30
 ---
 
-##I DIDN'T BREAK IT
+## I DIDN'T BREAK IT
 yet
 
 # Android 9 on the LG V30 DOES NOT allow for extended display.
@@ -12,7 +12,7 @@ people, but I like using all the screen space I have available. This phone in pa
 took me an embarassingly long amount of time to bypass the FRP lock, and at this point I feel as if I've devoted too much time into getting
 it into a usable state to risk bricking it. 
 
-##Instructions:
+## Instructions:
 First and foremost, this phone was originally on Verizon firmware, as it is a VS996, but in the process of bypassing the FRP, i crossed 
 flashed T-Mobile firmware. It now believes it is a US998. Im not sure if this is necessary for this to work, but I've added to note just in case.
 
