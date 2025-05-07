@@ -97,5 +97,63 @@ console.error('Error:', error);
   }
 
   updateCounts()
+
+  // Get user IP for uniqueness (can be improved later)
+async function getIP() {
+  try {
+    const res = await fetch("https://api.ipify.org?format=json");
+    const json = await res.json();
+    return json.ip;
+  } catch {
+    return null;
+  }
+}
+
+async function recordView() {
+  const ip = await getIP();
+
+  const { data, error } = await supabase
+    .from('views')
+    .select('*')
+    .eq('page', page)
+    .single();
+
+  if (error && error.code !== 'PGRST116') {
+    console.error('View fetch error:', error);
+    return;
+  }
+
+  if (!data) {
+    // First time this page is viewed
+    await supabase.from('views').insert({
+      page: page,
+      total_views: 1,
+      unique_views: ip ? 1 : 0,
+      last_ip: ip
+    });
+  } else {
+    const isUnique = ip && data.last_ip !== ip;
+    await supabase.from('views').update({
+      total_views: data.total_views + 1,
+      unique_views: data.unique_views + (isUnique ? 1 : 0),
+      last_ip: ip
+    }).eq('page', page);
+  }
+
+  // Display the result
+  const result = await supabase
+    .from('views')
+    .select('total_views, unique_views')
+    .eq('page', page)
+    .single();
+
+  if (result.data) {
+    document.getElementById('views').innerText =
+      `Views: ${result.data.total_views} | Unique: ${result.data.unique_views}`;
+  }
+}
+
+recordView();
 </script>
 {% endraw %}
+<p id="views">Loading views...</p>
