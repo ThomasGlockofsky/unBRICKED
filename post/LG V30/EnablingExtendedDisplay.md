@@ -65,32 +65,13 @@ console.log('Page ID:',page);
     }
   }
 
-  window.vote = async function (type) {
-  try {
+ window.vote = async function (type) {
     const { data, error } = await supabase
       .from('votes')
       .select('*')
       .eq('page', page)
-      .single();
+      .single()
 
-    if (error) throw error;
-    if (!data) throw new Error('No data found for page: ' + page);
-
-    const count = (data[type] || 0) + 1;
-
-    const { error: updateError } = await supabase
-      .from('votes')
-      .update({ [type]: count })
-      .eq('page', page);
-
-    if (updateError) throw updateError;
-
-    document.getElementById(type).innerText =
-      `${type.charAt(0).toUpperCase() + type.slice(1)} (${count})`;
-  } catch (err) {
-    console.error('Vote error:', err);
-  }
-};
 
 console.log('Page:', page);
 console.log('Data:', data);
