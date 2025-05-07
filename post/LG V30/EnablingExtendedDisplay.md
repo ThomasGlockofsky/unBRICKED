@@ -154,6 +154,50 @@ async function recordView() {
 }
 
 recordView();
+
+  async function loadComments() {
+  const { data, error } = await supabase
+    .from('comments')
+    .select('username, body, created_at')
+    .eq('page', page)
+    .order('created_at', { ascending: false });
+
+  if (!error) {
+    const container = document.getElementById('comments');
+    container.innerHTML = '';
+    data.forEach(c => {
+      const el = document.createElement('div');
+      el.innerHTML = `<strong>${c.username}</strong> <small>${new Date(c.created_at).toLocaleString()}</small><p>${c.body}</p><hr>`;
+      container.appendChild(el);
+    });
+  }
+}
+
+document.getElementById('comment-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const username = document.getElementById('username').value.trim();
+  const body = document.getElementById('comment-body').value.trim();
+
+  if (username && body) {
+    await supabase.from('comments').insert([{ page, username, body }]);
+    document.getElementById('comment-body').value = '';
+    loadComments();
+  }
+});
+
+loadComments();
+  
 </script>
 {% endraw %}
 <p id="views">Loading views...</p>
+
+<div id="comment-section">
+  <h3>Comments</h3>
+  <div id="comments"></div>
+
+  <form id="comment-form">
+    <input type="text" id="username" placeholder="Your name" required style="display:block; margin-bottom:5px;">
+    <textarea id="comment-body" placeholder="Write a comment..." required style="display:block; width:100%; height:80px;"></textarea>
+    <button type="submit">Post Comment</button>
+  </form>
+</div>
