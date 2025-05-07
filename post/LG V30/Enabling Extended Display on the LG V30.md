@@ -39,42 +39,56 @@ should work with any app. Also things like volume and power menus won't show on 
 The command has been added to the instructions, you can replace Stremio with any other app and it should work. 
 
 {% raw %}
-<!-- HTML -->
-<div id="vote-container">
+<div>
   <button onclick="vote('like')">Like (<span id="like-count">0</span>)</button>
   <button onclick="vote('dislike')">Dislike (<span id="dislike-count">0</span>)</button>
 </div>
 
 <script type="module">
-  const supabaseUrl = 'https://motdgqbhzfurezxmgoxs.supabase.co';
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1vdGRncWJoemZ1cmV6eG1nb3hzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY2Mjc0NjIsImV4cCI6MjA2MjIwMzQ2Mn0.GMeVFEWbdzl3HxvRJerSCQA4Tg9tDrey9ILESrHTVNQ';
-  const pageId = window.location.pathname; // use pathname as unique ID
-  const client = supabase.createClient(supabaseUrl, supabaseKey);
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
-  async function getVotes() {
-    const { data } = await client
+  const supabase = createClient('https://motdgqbhzfurezxmgoxs.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1vdGRncWJoemZ1cmV6eG1nb3hzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY2Mjc0NjIsImV4cCI6MjA2MjIwMzQ2Mn0.GMeVFEWbdzl3HxvRJerSCQA4Tg9tDrey9ILESrHTVNQ')
+  const page = window.location.pathname
+
+  async function updateCounts() {
+    const { data, error } = await supabase
       .from('votes')
       .select('*')
-      .eq('page_id', pageId)
-      .single();
+      .eq('page', page)
+      .single()
 
     if (data) {
-      document.getElementById('like-count').textContent = data.likes;
-      document.getElementById('dislike-count').textContent = data.dislikes;
-    } else {
-      await client.from('votes').insert([{ page_id: pageId }]);
+      document.getElementById('like-count').textContent = data.likes
+      document.getElementById('dislike-count').textContent = data.dislikes
     }
   }
 
-  async function vote(type) {
-    const field = type === 'like' ? 'likes' : 'dislikes';
-    await client.rpc('increment_vote', { pageid: pageId, fieldname: field });
-    getVotes();
+  window.vote = async function (type) {
+    const { data, error } = await supabase
+      .from('votes')
+      .select('*')
+      .eq('page', page)
+      .single()
+
+    if (data) {
+      const updated = {
+        likes: type === 'like' ? data.likes + 1 : data.likes,
+        dislikes: type === 'dislike' ? data.dislikes + 1 : data.dislikes
+      }
+
+      await supabase
+        .from('votes')
+        .update(updated)
+        .eq('page', page)
+    } else {
+      await supabase
+        .from('votes')
+        .insert([{ page, likes: type === 'like' ? 1 : 0, dislikes: type === 'dislike' ? 1 : 0 }])
+    }
+
+    updateCounts()
   }
 
-  getVotes();
+  updateCounts()
 </script>
-
-<!-- Add Supabase JS SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"></script>
 {% endraw %}
