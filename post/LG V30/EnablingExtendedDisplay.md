@@ -48,8 +48,7 @@ The command has been added to the instructions, you can replace Stremio with any
   import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
   const supabase = createClient('https://motdgqbhzfurezxmgoxs.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1vdGRncWJoemZ1cmV6eG1nb3hzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY2Mjc0NjIsImV4cCI6MjA2MjIwMzQ2Mn0.GMeVFEWbdzl3HxvRJerSCQA4Tg9tDrey9ILESrHTVNQ')
-  // Remove "/post/" and ".html" from the URL
-const page = 'EnablingExtendedDisplay.md';
+  const page = 'EnablingExtendedDisplay.md';
 
 console.log('Page ID:',page);
 
@@ -67,11 +66,31 @@ console.log('Page ID:',page);
   }
 
   window.vote = async function (type) {
+  try {
     const { data, error } = await supabase
       .from('votes')
       .select('*')
       .eq('page', page)
-      .single()
+      .single();
+
+    if (error) throw error;
+    if (!data) throw new Error('No data found for page: ' + page);
+
+    const count = (data[type] || 0) + 1;
+
+    const { error: updateError } = await supabase
+      .from('votes')
+      .update({ [type]: count })
+      .eq('page', page);
+
+    if (updateError) throw updateError;
+
+    document.getElementById(type).innerText =
+      `${type.charAt(0).toUpperCase() + type.slice(1)} (${count})`;
+  } catch (err) {
+    console.error('Vote error:', err);
+  }
+};
 
 console.log('Page:', page);
 console.log('Data:', data);
