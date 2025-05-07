@@ -38,14 +38,13 @@ should work with any app. Also things like volume and power menus won't show on 
 ~~I rebooted my compouter last night and Windows doesn't save command history, but once I figure out the proper commands I'll add them.~~  
 The command has been added to the instructions, you can replace Stremio with any other app and it should work. 
 
-
+{% raw %}
 <!-- HTML -->
 <div id="vote-container">
   <button onclick="vote('like')">Like (<span id="like-count">0</span>)</button>
   <button onclick="vote('dislike')">Dislike (<span id="dislike-count">0</span>)</button>
 </div>
 
-{% raw %}
 <script type="module">
   const supabaseUrl = 'https://motdgqbhzfurezxmgoxs.supabase.co';
   const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1vdGRncWJoemZ1cmV6eG1nb3hzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY2Mjc0NjIsImV4cCI6MjA2MjIwMzQ2Mn0.GMeVFEWbdzl3HxvRJerSCQA4Tg9tDrey9ILESrHTVNQ';
