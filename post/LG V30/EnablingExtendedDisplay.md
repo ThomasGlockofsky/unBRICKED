@@ -74,6 +74,10 @@ console.log('Page ID:',page);
       .eq('page', page)
       .single()
 
+console.log('Page:', page);
+console.log('Data:', data);
+console.error('Error:', error);
+    
     if (data) {
       const updated = {
         likes: type === 'like' ? data.likes + 1 : data.likes,
