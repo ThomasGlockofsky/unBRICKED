@@ -21,7 +21,7 @@ Step 1) Enable USB Debugging (duh), and connect to debugger (Win 11 dev edition 
 Step 2) Run "adb shell dumpsys display". Note the display IDs and Layers. The Slimport should be display ID 1, layer0  
 Step 3) Using scrcpy, run "scrcpy --list-display". The display ID for the Slimport should match from "dumpsys", if not, reboot and try again.  
 Step 4) You will need to launch scrcpy on the second display (scrcpy --display-id 1). It should mirror the phone's screen.  
-Step 5) In a seperate terminal, you need to launch an activity on the second display (using adb shell), using the display ID 1. It should fail. "adb shell am start --display 1 -n com.stremio.one/com.stremio.tv.MainActivity" for Stremio, but you can try any app
+Step 5) In a seperate terminal, you need to launch an activity on the second display (using adb shell), using the display ID 1. It should fail. "adb shell am start --display 1 -n com.stremio.one/com.stremio.tv.MainActivity" for Stremio, but you can try any app.  
 Step 6) Run "adb shell dumpsys display" again. This time the slimport should have a layer number other than 0, and the display ID should 
 change to match it.  
 Step 7) You should now be able to launch an activity successfully on the second display(using adb shell), using the new display ID. Adb shell am start --display 13 -n com.stremio.one/com.stremio.tv.MainActivity 
