@@ -49,8 +49,7 @@ The command has been added to the instructions, you can replace Stremio with any
 
   const supabase = createClient('https://motdgqbhzfurezxmgoxs.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1vdGRncWJoemZ1cmV6eG1nb3hzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY2Mjc0NjIsImV4cCI6MjA2MjIwMzQ2Mn0.GMeVFEWbdzl3HxvRJerSCQA4Tg9tDrey9ILESrHTVNQ')
   // Remove "/post/" and ".html" from the URL
-const page = window.location.pathname.replace('/post/', '').replace('.html', '')  // clean up the path
-   .replace(/\//g, '-');  // optional: replace slashes with dashes for better readability
+const page = 'EnablingExtendedDisplay.md';
 
 console.log('Page ID:',page);
 
