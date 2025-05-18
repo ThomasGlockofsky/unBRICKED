@@ -38,6 +38,9 @@ should work with any app. Also things like volume and power menus won't show on 
 ~~I rebooted my compouter last night and Windows doesn't save command history, but once I figure out the proper commands I'll add them.~~  
 The command has been added to the instructions, you can replace Stremio with any other app and it should work. 
 
+## Another update
+The command may appear to only have 1 long dash before "display", dpending on your browser/device, but there should be 2 short dashes ( -  - display). I tried to copy/paste the command from the broswer on my phone and it wouldn't work, because the browser turned it into 1 long dash instead of 2 short dashes. 
+
 {% raw %}
 <div>
   <button onclick="vote('like')">Like (<span id="like-count">0</span>)</button>
