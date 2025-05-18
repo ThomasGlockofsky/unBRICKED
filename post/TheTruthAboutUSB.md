@@ -34,7 +34,7 @@ There’s a myth floating around that spending more money gets you a better dock
 
 My sub-$20 dock supports USB 2, USB 3, SD cards, 4K HDMI over both DP-Alt Mode and SlimPort, and Power Delivery. And it handles multiple functions simultaneously without issue.
 
-Meanwhile, my $90+ Thunderbolt 4 dock — with brand-name packaging and a thick instruction manual — only works under very specific combinations. USB 3 or HDMI. Or Ethernet and charging — but not both. More expensive doesn’t mean more capable.
+Meanwhile, my $90+ Thunderbolt 4 dock — with brand-name packaging and a thick instruction manual — only works under very specific combinations. USB 3 and HDMI. But Ethernet OR charging — but not both. More expensive doesn’t mean more capable.
 
 At the end of the day, the best dock for you depends on your use case — not your budget. And the only way to know what you're really getting is through real-world testing, not marketing promises.
 
